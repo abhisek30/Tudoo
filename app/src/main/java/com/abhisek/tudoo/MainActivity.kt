@@ -1,9 +1,9 @@
 package com.abhisek.tudoo
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.NavHostFragment
@@ -13,7 +13,7 @@ import com.abhisek.tudoo.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
-    lateinit var navHostFragment : NavHostFragment
+    lateinit var navHostFragment: NavHostFragment
     lateinit var navController: NavController
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,11 +23,12 @@ class MainActivity : AppCompatActivity() {
         binding.bottomNavigationView.clearAnimation()
         setContentView(view)
 
-        navHostFragment = supportFragmentManager.findFragmentById(R.id.fragmentContainerView2) as NavHostFragment
+        navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.fragmentContainerView2) as NavHostFragment
         navController = navHostFragment.navController
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
-            if(destination.id == R.id.addFragment) {
+            if (destination.id == R.id.addFragment || destination.id == R.id.updateFragment) {
                 binding.bottomNavigationView.visibility = View.GONE
             } else {
                 binding.bottomNavigationView.visibility = View.VISIBLE
@@ -39,14 +40,11 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    override fun onResume() {
-        super.onResume()
-        navController = navHostFragment.navController
-    }
-
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         navController = navHostFragment.navController
-        return item.onNavDestinationSelected(Navigation.findNavController(binding.fragmentContainerView2)) || super.onOptionsItemSelected(item)
+        return item.onNavDestinationSelected(Navigation.findNavController(binding.fragmentContainerView2)) || super.onOptionsItemSelected(
+            item
+        )
 
     }
 }

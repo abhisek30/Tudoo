@@ -7,17 +7,6 @@
     android:layout_height="match_parent"
     tools:context=".AddFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Add Fragment"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <Button
         android:id="@+id/addTodoButton"
         android:layout_width="wrap_content"
@@ -27,5 +16,141 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/montserrat_alternates_bold"
+        android:text="Add task"
+        android:textColor="@color/black"
+        android:textSize="34sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/titile_txtview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="64dp"
+        android:text="Task title"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toStartOf="@+id/textView4"
+        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+
+    <EditText
+        android:id="@+id/titleEditText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:ems="10"
+        android:hint="Task Name"
+        android:inputType="textPersonName"
+        android:minHeight="48dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/titile_txtview"
+        app:layout_constraintTop_toBottomOf="@+id/titile_txtview" />
+
+    <TextView
+        android:id="@+id/description_txtview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="Task Description"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toStartOf="@+id/titleEditText"
+        app:layout_constraintTop_toBottomOf="@+id/titleEditText" />
+
+    <EditText
+        android:id="@+id/descriptionEdittext"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:ems="10"
+        android:hint="Task Description"
+        android:inputType="textPersonName"
+        android:minHeight="48dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/description_txtview"
+        app:layout_constraintTop_toBottomOf="@+id/description_txtview" />
+
+    <TextView
+        android:id="@+id/priority_txtview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="Priority"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toStartOf="@+id/descriptionEdittext"
+        app:layout_constraintTop_toBottomOf="@+id/descriptionEdittext" />
+
+    <nl.bryanderidder.themedtogglebuttongroup.ThemedToggleButtonGroup
+        android:id="@+id/priority_btn_group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:justifyContent="center"
+        app:layout_constraintStart_toStartOf="@+id/priority_txtview"
+        app:layout_constraintTop_toBottomOf="@+id/priority_txtview">
+
+        <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
+            android:id="@+id/high_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="38dp"
+            app:toggle_selectedBackgroundColor="#FF4646"
+            app:toggle_selectedTextColor="#FFFFFF"
+            app:toggle_text="High" />
+
+        <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
+            android:id="@+id/medium_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="38dp"
+            app:toggle_selectedBackgroundColor="#FFC114"
+            app:toggle_selectedTextColor="#FFFFFF"
+            app:toggle_text="Medium" />
+
+        <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
+            android:id="@+id/low_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="38dp"
+            app:toggle_selectedBackgroundColor="#00C980"
+            app:toggle_selectedTextColor="#FFFFFF"
+            app:toggle_text="Low" />
+
+    </nl.bryanderidder.themedtogglebuttongroup.ThemedToggleButtonGroup>
+
+    <TextView
+        android:id="@+id/deadline_txtview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="Deadline"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toStartOf="@+id/priority_btn_group"
+        app:layout_constraintTop_toBottomOf="@+id/priority_btn_group" />
+
+    <nl.bryanderidder.themedtogglebuttongroup.ThemedToggleButtonGroup
+        android:id="@+id/deadline_btn_group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        app:justifyContent="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/deadline_txtview"
+        app:layout_constraintTop_toBottomOf="@+id/deadline_txtview">
+
+        <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
+            android:id="@+id/choose_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="38dp"
+            app:toggle_text="Choose Deadline" />
+
+    </nl.bryanderidder.themedtogglebuttongroup.ThemedToggleButtonGroup>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

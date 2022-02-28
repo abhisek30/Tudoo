@@ -1,31 +1,27 @@
 package com.abhisek.tudoo
 
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.NavController
-import androidx.navigation.Navigation
-import androidx.navigation.Navigation.findNavController
-import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.ui.onNavDestinationSelected
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.abhisek.tudoo.databinding.FragmentHomeBinding
-import kotlinx.android.synthetic.main.fragment_home.*
+import com.shrikanthravi.collapsiblecalendarview.data.Day
+import com.shrikanthravi.collapsiblecalendarview.widget.CollapsibleCalendar
+import java.util.*
 
 
 class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
-    // This property is only valid between onCreateView and
-// onDestroyView.
     private val binding get() = _binding!!
-    lateinit var navController: NavController
     private lateinit var sharedViewModel: SharedViewModel
+    private lateinit var adapter: HomeAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,32 +30,99 @@ class HomeFragment : Fragment() {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val view = binding.root
 
+        setUpRecyclerView()
+        setUpCalenderView()
+        sharedViewModel = ViewModelProvider(this).get(SharedViewModel::class.java)
+
         binding.addActionBtn.setOnClickListener {
-            findNavController().navigate(R.id.action_homeFragment_to_addFragment,null)
+            findNavController().navigate(R.id.action_homeFragment_to_addFragment)
         }
 
-        sharedViewModel = ViewModelProvider(this).get(SharedViewModel::class.java)
-        sharedViewModel.readAllTodo.observe(viewLifecycleOwner, Observer { user->
-            for (i in user){
-                Log.d("LISTTAG",i.id.toString())
-                Log.d("LISTTAG",i.title.toString())
-                Log.d("LISTTAG",i.priority.toString())
-                Log.d("LISTTAG",i.description.toString())
-            }
-            /*if(user!=null){
-                Log.d("LISTTAG",user[0].id.toString())
-                Log.d("LISTTAG",user[0].title.toString())
-                Log.d("LISTTAG",user[0].priority.toString())
-                Log.d("LISTTAG",user[0].description.toString())
+        sharedViewModel.readActiveTodo.observe(viewLifecycleOwner, Observer { user ->
+            adapter.setData(user)
+            /*for (i in user) {
+                val date1 = Calendar.getInstance().time
+                val date2 = i.deadline
+                if (date1.compareTo(date2) > 0) {
+                    Log.d("app", "Date1 is after Date2")
+                } else if (date1.compareTo(date2) < 0) {
+                    Log.d("app", "Date1 is before Date2")
+                }
             }*/
         })
 
         return view
-
     }
-    /*override fun onDestroyView() {
+
+    private fun setUpCalenderView() {
+        var collapsibleCalendar = binding.calendarView
+        collapsibleCalendar.setExpandIconVisible(true)
+        val today = GregorianCalendar()
+        collapsibleCalendar.addEventTag(
+            today.get(Calendar.YEAR), today.get(Calendar.MONTH), today.get(
+                Calendar.DAY_OF_MONTH
+            )
+        )
+        today.add(Calendar.DATE, 1)
+        collapsibleCalendar.selectedDay = Day(
+            today.get(Calendar.YEAR), today.get(Calendar.MONTH), today.get(
+                Calendar.DAY_OF_MONTH
+            )
+        )
+        collapsibleCalendar.addEventTag(
+            today.get(Calendar.YEAR), today.get(Calendar.MONTH), today.get(
+                Calendar.DAY_OF_MONTH
+            ), Color.BLUE
+        )
+        collapsibleCalendar.params = CollapsibleCalendar.Params(0, 100)
+        binding.calendarView.setCalendarListener(object : CollapsibleCalendar.CalendarListener {
+            override fun onDayChanged() {
+
+            }
+
+            override fun onClickListener() {
+                if (collapsibleCalendar.expanded) {
+                    collapsibleCalendar.collapse(400)
+                } else {
+                    collapsibleCalendar.expand(400)
+                }
+            }
+
+            override fun onDaySelect() {
+                //val day : Day =
+                Log.d("HOME", collapsibleCalendar.selectedDay?.day.toString())
+                Log.d("HOME", collapsibleCalendar.selectedDay?.month.toString())
+                Log.d("HOME", collapsibleCalendar.selectedDay?.year.toString())
+                Log.d("HOME", collapsibleCalendar.selectedDay?.diff.toString())
+            }
+
+            override fun onItemClick(v: View) {
+
+            }
+
+            override fun onDataUpdate() {
+
+            }
+
+            override fun onMonthChange() {
+
+            }
+
+            override fun onWeekChange(position: Int) {
+
+            }
+        })
+    }
+
+    private fun setUpRecyclerView() {
+        adapter = HomeAdapter()
+        val recyclerView = binding.recyclerView
+        recyclerView.adapter = adapter
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
+    }
+
+    override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-    }*/
-
+    }
 }
